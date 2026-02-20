@@ -8,6 +8,9 @@ class Menu:
         self.window = window
         self.surf = pygame.image.load('./asset/bg.png')
         self.rect = self.surf.get_rect(left=0, top=0)
+        self.click_sound = pygame.mixer.Sound('./asset/click.wav')
+        self.click_sound.set_volume(0.3)
+        self.confirm_sound = pygame.mixer.Sound('./asset/pickup.wav')
 
         # CARREGAMOS AS FONTES AQUI (Uma única vez)
         # Criamos duas versões: uma bold para o título e uma normal para o resto
@@ -16,8 +19,12 @@ class Menu:
 
 
     def run(self, ):
+        menu_option = 0
         pygame.mixer_music.load('./asset/fase1.mp3')
+        pygame.mixer_music.set_volume(0.1)
         pygame.mixer_music.play(-1)
+
+
 
         # 1. PRIMEIRO: Checa eventos (Input)
         while True:
@@ -26,6 +33,26 @@ class Menu:
                 if event.type == pygame.QUIT: # Se clicar no "X"
                     pygame.quit()  # Close Window
                     quit()  # ctrl+alt+l
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_DOWN: # desce o menu
+                        self.click_sound.play()
+                        if menu_option < len(MENU_OPTION) - 1:
+                            menu_option += 1
+                        else:
+                            menu_option = 0
+
+                    elif event.key == pygame.K_UP: # sobe o menu
+                        self.click_sound.play()
+                        if menu_option > 0:
+                            menu_option -= 1
+                        else:
+                            menu_option = len(MENU_OPTION) - 1
+
+                    elif event.key == pygame.K_RETURN: # Enter
+                        self.confirm_sound.play()
+                        pygame.time.delay(150) # Pausa o código por 150ms para o som aparecer
+                        return MENU_OPTION[menu_option]
+
 
             # 2. SEGUNDO: Desenha (Render)
             self.window.blit(source=self.surf, dest=self.rect)
@@ -35,8 +62,12 @@ class Menu:
             self.menu_text(50, 'Shooter', COLOR_ORANGE, ((WIN_WIDTH/2), 120), True)
 
             for i in range(len(MENU_OPTION)):
-                self.menu_text(20, MENU_OPTION[i], COLOR_WHITE, ((WIN_WIDTH/2), 190 + 25 * i))
-
+                if i == menu_option:
+                    # Se for a opção selecionada, desenha em AMARELO
+                    self.menu_text(20, MENU_OPTION[i], COLOR_YELLOW, ((WIN_WIDTH/2), 190 + 25 * i))
+                else:
+                    # Se não for, desenha em BRANCO
+                    self.menu_text(20, MENU_OPTION[i], COLOR_WHITE, ((WIN_WIDTH/2), 190 + 25 * i))
 
             # 3. TERCEIRO: Mostra tudo de uma vez
             pygame.display.flip()
