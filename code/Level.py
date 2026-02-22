@@ -1,8 +1,9 @@
+import random
 import sys
 import pygame
 
 from pygame import Font, Surface, Rect
-from code.Const import COLOR_WHITE, WIND_HEIGHT
+from code.Const import COLOR_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 
@@ -14,6 +15,10 @@ class Level:
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity('Level1Bg'))
+        self.entity_list.append(EntityFactory.get_entity('Player1'))
+        if game_mode in [MENU_OPTION[1], MENU_OPTION[2]]:
+            self.entity_list.append(EntityFactory.get_entity('Player2'))
+        pygame.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
 
     def run (self):
         nome_arquivo = self.name.replace(" ", "")
@@ -31,10 +36,14 @@ class Level:
                     pygame.quit()  # Close Window
                     sys.exit()  # ctrl+alt+l
 
+            if event.type == EVENT_ENEMY:
+                choice = random.choice(['Enemy1', 'Enemy2'])
+                self.entity_list.append(EntityFactory.get_entity(choice))
+
             # printed text
             self.level_text(14, f'{self.name} - Timeout: {self.timeout / 100:.1f}s', COLOR_WHITE, (10,5))
-            self.level_text(14, f'fps: {clock.get_fps():.0f}', COLOR_WHITE, (10,WIND_HEIGHT - 35))
-            self.level_text(14, f'entidade: {len(self.entity_list)}', COLOR_WHITE, (10,WIND_HEIGHT - 20))
+            self.level_text(14, f'fps: {clock.get_fps():.0f}', COLOR_WHITE, (10,WIN_HEIGHT - 35))
+            self.level_text(14, f'entidade: {len(self.entity_list)}', COLOR_WHITE, (10,WIN_HEIGHT - 20))
 
             pygame.display.flip()
         pass

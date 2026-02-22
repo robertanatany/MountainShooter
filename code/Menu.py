@@ -1,6 +1,6 @@
 import pygame.image
 
-from code.Const import WIN_WIDTH, WIND_HEIGHT, COLOR_ORANGE, COLOR_YELLOW, COLOR_WHITE, MENU_OPTION
+from code.Const import WIN_WIDTH, COLOR_ORANGE, COLOR_YELLOW, COLOR_WHITE, MENU_OPTION
 
 
 class Menu:
