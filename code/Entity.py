@@ -2,6 +2,9 @@ from abc import ABC, abstractmethod, abstractproperty
 
 import pygame
 
+from code.Const import ENTITY_HEALTH
+
+
 # Entity: Define que tudo no jogo tem imagem, posição e sabe se mover.
 # Mas ela sozinha não "existe" (por isso é ABC).
 
@@ -11,8 +14,10 @@ class Entity(ABC):
         self.surf = pygame.image.load('./asset/' + name + '.png').convert_alpha()
         self.rect = self.surf.get_rect(left=position[0], top=position[1])
         self.speed = 0
+        self.health = ENTITY_HEALTH[self.name]
 
     @abstractmethod # decoretor
     def move (self, ):
         pass
+
 
