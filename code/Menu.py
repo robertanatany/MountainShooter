@@ -1,6 +1,6 @@
 import pygame.image
 
-from code.Const import WIN_WIDTH, COLOR_ORANGE, COLOR_YELLOW, COLOR_WHITE, MENU_OPTION
+from code.Const import WIN_WIDTH, C_ORANGE, C_YELLOW, C_WHITE, MENU_OPTION
 
 
 class Menu:
@@ -58,16 +58,16 @@ class Menu:
             self.window.blit(source=self.surf, dest=self.rect)
 
             # ENCREVENDO O TEXTO
-            self.menu_text(50, 'Mountain', COLOR_ORANGE, ((WIN_WIDTH/2), 70), True)
-            self.menu_text(50, 'Shooter', COLOR_ORANGE, ((WIN_WIDTH/2), 120), True)
+            self.menu_text(50, 'Mountain', C_ORANGE, ((WIN_WIDTH / 2), 70), True)
+            self.menu_text(50, 'Shooter', C_ORANGE, ((WIN_WIDTH / 2), 120), True)
 
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
                     # Se for a opção selecionada, desenha em AMARELO
-                    self.menu_text(20, MENU_OPTION[i], COLOR_YELLOW, ((WIN_WIDTH/2), 190 + 25 * i))
+                    self.menu_text(20, MENU_OPTION[i], C_YELLOW, ((WIN_WIDTH / 2), 190 + 25 * i))
                 else:
                     # Se não for, desenha em BRANCO
-                    self.menu_text(20, MENU_OPTION[i], COLOR_WHITE, ((WIN_WIDTH/2), 190 + 25 * i))
+                    self.menu_text(20, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 190 + 25 * i))
 
             # 3. TERCEIRO: Mostra tudo de uma vez
             pygame.display.flip()
