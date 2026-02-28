@@ -24,8 +24,6 @@ class Menu:
         pygame.mixer_music.set_volume(0.1)
         pygame.mixer_music.play(-1)
 
-
-
         # 1. PRIMEIRO: Checa eventos (Input)
         while True:
             # Check for all events
