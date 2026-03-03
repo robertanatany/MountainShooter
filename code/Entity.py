@@ -20,7 +20,7 @@ class Entity(ABC):
         self.last_dmg = "None"
 
     @abstractmethod # decoretor
-    def move (self, ):
+    def move (self):
         pass
 
 

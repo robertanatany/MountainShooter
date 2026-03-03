@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from code.Level import Level
@@ -33,5 +35,6 @@ class Game:
                 pygame.quit()  # Close Window
                 quit()  # End pygame
             else:
-                pass
+                pygame.quit()
+                sys.exit()
 

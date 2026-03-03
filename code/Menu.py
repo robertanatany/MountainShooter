@@ -18,7 +18,7 @@ class Menu:
         self.font_menu = pygame.font.SysFont('lucidasans', 20, bold=False)
 
 
-    def run(self, ):
+    def run(self):
         menu_option = 0
         pygame.mixer_music.load('./asset/fase1.mp3')
         pygame.mixer_music.set_volume(0.1)
